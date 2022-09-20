@@ -45,8 +45,8 @@ list_item_creature.xml
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/thumbnail_creature_cat_derp" />
 
-    <TextView
-        android:id="@+id/textView"
+   <TextView
+        android:id="@+id/fullNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_half"
@@ -172,6 +172,26 @@ object CreatureStore {
 }
 ```
 
+## Bind the Views
+<img width="300" alt="スクリーンショット 2022-09-21 8 57 17" src="https://user-images.githubusercontent.com/47273077/191385049-ceff9589-edc1-4e76-9ea1-24a5af298594.png">
+
+CreatureAdapter.kt
+```kt
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        private lateinit var creature: Creature
+
+        fun bind(creature: Creature) {
+            this.creature = creature
+            val context = itemView.context
+            itemView.creatureImage.setImageResource(context.resources.getIdentifier(creature.uri, null, context.packageName))
+            itemView.fullNameText.text = creature.fullName
+        }
+    }
+    
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(creatures[position])
+    }
+```
 
 -------
 ## その他変更
