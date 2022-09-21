@@ -193,6 +193,73 @@ CreatureAdapter.kt
     }
 ```
 
+## Challenge: Add More Data
+<img width="300" alt="スクリーンショット 2022-09-21 9 09 57" src="https://user-images.githubusercontent.com/47273077/191386264-47dbb67a-fcce-42f6-83b6-6b3e23b2c2ef.png">
+
+list_item_creature.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_creature_height">
+
+    <ImageView
+        android:id="@+id/creatureImage"
+        android:layout_width="@dimen/list_item_creature_height"
+        android:layout_height="@dimen/list_item_creature_height"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:contentDescription="@string/content_description_creature_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/thumbnail_creature_cat_derp" />
+
+    <TextView
+        android:id="@+id/fullNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:layout_marginTop="@dimen/padding_half"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginBottom="@dimen/padding_half"
+        android:text="Full Name"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/creature_name_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/nickname"
+        app:layout_constraintStart_toEndOf="@+id/creatureImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_standard"
+        android:layout_marginBottom="@dimen/padding_half"
+        android:text="Nick Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/creatureImage"
+        app:layout_constraintTop_toBottomOf="@id/fullNameText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+CreatureAdapter.kt
+```kt
+        fun bind(creature: Creature) {
+            this.creature = creature
+            val context = itemView.context
+            itemView.creatureImage.setImageResource(context.resources.getIdentifier(creature.uri, null, context.packageName))
+            itemView.fullNameText.text = creature.fullName
+            itemView.nickname.text = creature.nickname
+
+        }
+```
+
 -------
 ## その他変更
 build.gradle
