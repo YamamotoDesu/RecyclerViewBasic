@@ -263,6 +263,8 @@ CreatureAdapter.kt
 
 ## Respond to Clicks
 
+<img width="300" alt="スクリーンショット 2022-09-21 9 09 57" src="https://user-images.githubusercontent.com/47273077/191387040-c2cec93e-8bc1-4fff-ab97-35ae2f2dec90.gif">
+
 CreatureActivity.kt
 ```kt 
 class CreatureActivity : AppCompatActivity() {
@@ -308,6 +310,7 @@ CreatureAdapter.kt
         }
     }
 ```
+
 
 -------
 ## その他変更
