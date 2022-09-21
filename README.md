@@ -260,6 +260,55 @@ CreatureAdapter.kt
         }
 ```
 
+
+## Respond to Clicks
+
+CreatureActivity.kt
+```kt 
+class CreatureActivity : AppCompatActivity() {
+
+  private lateinit var creature: Creature
+
+  companion object {
+    private const val EXTRA_CREATURE_ID = "EXTRA_CREATURE_ID"
+
+    fun newIntent(context: Context, creatureId: Int): Intent {
+      val intent = Intent(context, CreatureActivity::class.java)
+      intent.putExtra(EXTRA_CREATURE_ID, creatureId)
+      return intent
+    }
+  }
+
+```
+
+CreatureAdapter.kt
+```kt
+    class ViewHolder(v: View) : View.OnClickListener, RecyclerView.ViewHolder(v) {
+        private lateinit var creature: Creature
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        fun bind(creature: Creature) {
+            this.creature = creature
+            val context = itemView.context
+            itemView.creatureImage.setImageResource(context.resources.getIdentifier(creature.uri, null, context.packageName))
+            itemView.fullNameText.text = creature.fullName
+            itemView.nickname.text = creature.nickname
+
+        }
+
+        override fun onClick(view: View?) {
+            view?.let {
+                val context = it.context
+                val intent = CreatureActivity.newIntent(context, creature.id)
+                context.startActivity(intent)
+            }
+        }
+    }
+```
+
 -------
 ## その他変更
 build.gradle
