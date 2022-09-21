@@ -311,6 +311,75 @@ CreatureAdapter.kt
     }
 ```
 
+## Challenge: Build the Favorites Screen
+
+<img width="300" alt="スクリーンショット 2022-09-22 8 14 51" src="https://user-images.githubusercontent.com/47273077/191626233-92c74e7e-d90f-4a7b-b979-c8d322449403.png">
+
+fragment_favorites.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+FavoritesFragment
+```kt
+class FavoritesFragment : Fragment() {
+
+  private val adapter = CreatureAdapter(mutableListOf())
+
+  companion object {
+    fun newInstance(): FavoritesFragment {
+      return FavoritesFragment()
+    }
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    favoritesRecyclerView.layoutManager = LinearLayoutManager(activity)
+    favoritesRecyclerView.adapter = adapter
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    return inflater.inflate(R.layout.fragment_favorites, container, false)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    activity?.let {
+      CreatureStore.getFavoriteCreatures(it)?.let {
+        favorites ->
+        adapter.updateCreatures(favorites)
+      }
+    }
+  }
+```
+
+CreatureAdapter
+```kt
+class CreatureAdapter(private val creatures: MutableList<Creature>): RecyclerView.Adapter<CreatureAdapter.ViewHolder>() {
+
+    fun updateCreatures(creatures: List<Creature>) {
+        this.creatures.clear()
+        this.creatures.addAll(creatures)
+        notifyDataSetChanged()
+    }
+    
+```
 
 -------
 ## その他変更
