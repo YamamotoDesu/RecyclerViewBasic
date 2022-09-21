@@ -391,17 +391,21 @@ android {
         applicationId "com.raywenderlich.android.creatures"
         minSdkVersion 21
         targetSdkVersion 31
+        
 ```
 
-gradle.properties(app)
-```gradle
-distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
-
+```
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+```
+    
+
+gradle.properties(app)
+```gradle
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
 ```
 
 build.gradle(Project)
